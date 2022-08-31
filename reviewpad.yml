@@ -38,12 +38,19 @@ workflows:
     if:
       - rule: $pullRequestCountBy($author(), "all") == 1
         extra-actions:
-          - '$commentOnce($sprintf("Welcome @%v! Thank you so much for your first pull request!", [$author()]))'
+          - '$commentOnce($sprintf("Welcome @%v! Thank you so much for your first pull request! If you would like to continue contributing to open source and would like to do it with an awesome inclusive community, you should join our <a href="http://discord.eddiehub.org">Discord</a> chat and our <a href="http://github.eddiehub.org">GitHub Organisation</a> - we help and encourage each other to contribute to open source little and often 🤓 . Any questions let us know.", [$author()]))'
       
       - rule: $pullRequestCountBy($author(), "all") == 10
         extra-actions:
           - $addLabel("kudos")
           - $info("Kudos for your 10th pull request! You are awesome")
+
+  - name: first-issue
+    always-run: true
+    if:
+      - rule: $issueCountBy($author(), "all") == 1
+    then:
+      - '$commentOnce($sprintf("Welcome @%v! Thank you so much for your first issue! If you would like to continue contributing to open source and would like to do it with an awesome inclusive community, you should join our <a href="http://discord.eddiehub.org">Discord</a> chat and our <a href="http://github.eddiehub.org">GitHub Organisation</a> - we help and encourage each other to contribute to open source little and often 🤓 . Any questions let us know.", [$author()]))'
 
   - name: waiting-for-reviewers
     always-run: true
